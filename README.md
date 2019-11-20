@@ -6,7 +6,7 @@ Hello, spotyPie is an demo about how apis works, we used python3.7, requests 2.2
   * starting of backup file we can upload to our playlist
   * get our playlist from spotify
   * delete some or all tracks
-  * maintain our datas in database file and spotify count sinchronized
+  * maintain our datas in database file and spotify acount sinchronized
   
  Also are included the tests in /tests folder.
 
