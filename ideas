@@ -1,0 +1,37 @@
+  primero revisa si estan sincronizado los Datos
+
+1 traer tracks de spotify
+
+  si no tiene Datos en spotify
+    {
+
+    revisar si tienes datos en base de datos:
+
+        si tienes datos traetelos a spotify
+
+
+        si no no hagas nada
+    }
+
+
+
+  si tiene Datos en Spotify
+    {
+     revisar si tienes datos en la base de datos:
+
+        si
+
+    }
+
+
+
+
+#################################
+2 traer datos de base de Datos
+3 compararlos
+
+
+
+
+
+unittestcaja negra blanca verde
