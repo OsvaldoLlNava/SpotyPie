@@ -7,7 +7,7 @@ from SPYClass import sinchronize
 import sqlite3
 
 
-class Spotytest():
+class SpotyPie():
 
     api=None
     bdd=None
