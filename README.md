@@ -10,45 +10,44 @@ Hello, spotyPie is an demo about how apis works, we used python3.7, requests 2.2
   
  Also are included the tests in /tests folder.
 
-FILE SPYCLASS.PY 
-  class APISFY() 
-      * readCredentials(list file) > return credentials if ok or 0 if not.
-      * saveTrack(list idTrackList) > return 0 in exit or 1 if there an error
-      * getTrackFromSpotify(string songName, string artistName) > return object track or 1
-      * getPlaylistIDSfromSpotify() > return list playlistids or 1
-      * getTrackslistfromSpotify() > return list playlist or 1
-      * printPlaylist(playlist play) > return playlist string and an index for each one or 1
-      * getTrackfromPlaylistWithID(playlist play,int index) > return track.id for play[index] or 1
-      * deleteTrack(playlistids ids) > return 0 if ok and else one
+FILE SPYCLASS.PY<br> 
+  class APISFY\()
+      \* readCredentials(list file) > return credentials if ok or 0 if not.<br>
+      \* saveTrack(list idTrackList) > return 0 in exit or 1 if there an error<br>
+      \* getTrackFromSpotify(string songName, string artistName) > return object track or 1<br>
+      \* getPlaylistIDSfromSpotify() > return list playlistids or 1<br>
+      \* getTrackslistfromSpotify() > return list playlist or 1<br>
+      \* printPlaylist(playlist play) > return playlist string and an index for each one or 1<br>
+      \* getTrackfromPlaylistWithID(playlist play,int index) > return track.id for play[index] or 1<br>
+      \* deleteTrack(playlistids ids) > return 0 if ok and else one<br>
+<br>
+  class DBSFY()<br>
+      * __init__(string archivo_path) > initialize the object DBSFY and connect to database file<br>
+      * saveTrack(Track track) > return 0 if saved or else 1<br>
+      * deleteTrack(string id_track) > return 0=ok or 1=no_okey<br>
+      * deleteAllTracks() > return 0=ok or 1=no_okey<br>
+      * getPlaylistfromDB() > return tracks list or 1=no_okey<br>
+      * getIDSFromDB(playlist tracks_list) > return list of id or 1<br>
 
-  class DBSFY()
-      * __init__(string archivo_path) > initialize the object DBSFY and connect to database file
-      * saveTrack(Track track) > return 0 if saved or else 1
-      * deleteTrack(string id_track) > return 0=ok or 1=no_okey
-      * deleteAllTracks() > return 0=ok or 1=no_okey
-      * getPlaylistfromDB() > return tracks list or 1=no_okey
-      * getIDSFromDB(playlist tracks_list) > return list of id or 1
-
-  class sinchronize()
-      * updateBDDfromSpotify(playlist librarySpotify, DBSFY objDB) > return 0 =ok or 1=no_okey
-      * updateSpotifyfromBDD(APISFY apiObj, playlist libraryFromDB) > return 0 =ok or 1=no_okey
-      * checkBDDvsSpotify(list idsSpotify,list idsBDD) > return an list of unsinchronized tracks
-    
-    
-FILE TRACK.PY
-   class Track()
-      * __init__(string id, sting nameSong, string album, int duration)  > initialize an new Track instance
-      * __str__() > return str(f"[{self.id}," +f" de {self.name},"+f"{self.artist},"+f" {self.album},"+f" {self.duration}]")
-
-FILE SPOTYPIE.PY
-   class spotypie()
-      * __init__(string credentialsFilePath, string DBFilePath) > initialize SpotiPie Object
-      * addTrackToMyPlaylist(list[Track] tracks) > return 0=OK or 1=NO_OK
-      * showMyPlaylist() > return 0 or 1
-      * deleteTrack(string idTrack) > return 0 or 1
-      * deleteAllTracks() > return 0 or 1
-      * makeSync() > return 0 or 1
-      * close() > return 1 or close
- 
-
-... for now this is it, enjoy the music :)
+  class sinchronize()<br>
+      * updateBDDfromSpotify(playlist librarySpotify, DBSFY objDB) > return 0 =ok or 1=no_okey<br>
+      * updateSpotifyfromBDD(APISFY apiObj, playlist libraryFromDB) > return 0 =ok or 1=no_okey<br>
+      * checkBDDvsSpotify(list idsSpotify,list idsBDD) > return an list of unsinchronized tracks<br>
+<br>       
+FILE TRACK.PY<br>
+   class Track()<br>
+      * __init__(string id, sting nameSong, string album, int duration)  > initialize an new Track instance<br>
+      * __str__() > return str(f"[{self.id}," +f" de {self.name},"+f"{self.artist},"+f" {self.album},"+f" {self.duration}]")<br>
+<br>
+FILE SPOTYPIE.PY<br>
+   class spotypie()<br>
+      * __init__(string credentialsFilePath, string DBFilePath) > initialize SpotiPie Object <br>
+      * addTrackToMyPlaylist(list[Track] tracks) > return 0=OK or 1=NO_OK<br>
+      * showMyPlaylist() > return 0 or 1<br>
+      * deleteTrack(string idTrack) > return 0 or 1<br>
+      * deleteAllTracks() > return 0 or 1<br>
+      * makeSync() > return 0 or 1<br>
+      * close() > return 1 or close<br>
+ <br>
+<br>
+... for now this is it, enjoy the music :)<br>
