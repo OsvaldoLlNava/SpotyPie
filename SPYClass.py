@@ -72,12 +72,13 @@ class APISFY():
     def getTrackslistfromSpotify(self): #obtener mi playlist desde spotify, devuelve obj tracks
         lib = self.sp.current_user_saved_tracks()
         playlist=[]
-        for track in lib['items']:
-            id_track = track['id']
-            name = track['name']
-            artist = track['artists'][0]['name']
-            album = track['album']['name']
-            duration = track['duration_ms']
+        for item in lib['items']:
+            #print(track)
+            id_track = item['track']['id']
+            name = item['track']['name']
+            artist = item['track']['artists'][0]['name']
+            album = item['track']['album']['name']
+            duration = item['track']['duration_ms']
             playlist.append(Track(id_track,name,artist,album,duration))
         return playlist
 
@@ -136,7 +137,7 @@ class DBSFY():# ////////////////////////////////////////////////////////////////
 
     def saveTrack(self, Track):
         #Primero revisemos los elementos de track,la estructurra del objeto track y las conexiones
-        # print ("[DEBUG 'Track.uri_track'] ",Track.uri_track)
+        # print ("[DEBUG 'Track.id'] ",Track.id)
         # print ("[DEBUG 'Track.name'] ",Track.name)
         # print ("[DEBUG 'Track.artist'] ",Track.artist)
         # print ("[DEBUG 'Track.album'] ",Track.album)
@@ -146,12 +147,12 @@ class DBSFY():# ////////////////////////////////////////////////////////////////
             print("Track is null")
             return 1
 
-        if (not isinstance(Track.uri_track, str)) or Track.uri_track==(" " or "")  or Track.uri_track==None or len(Track.uri_track)==0  or len(Track.uri_track)!=22 :
-            print("Error en uri_track [if]", Track.uri_track)
+        if (not isinstance(Track.id, str)) or Track.id==(" " or "")  or Track.id==None or len(Track.id)==0  or len(Track.id)!=22 :
+            print("Error en id [if]", Track.id)
             return 1
-        for x in Track.uri_track:
+        for x in Track.id:
             if not (x.isnumeric() or x.isalpha()):
-                print("Error en uri_track tiene caracteres especiales")
+                print("Error en id tiene caracteres especiales")
                 return 1
         #validar name
         if (not isinstance(Track.name, str)) or Track.name==None or Track.name==" " or Track.name=="" or (len(Track.name)>50):
@@ -183,16 +184,16 @@ class DBSFY():# ////////////////////////////////////////////////////////////////
         try:
             # conect = sqlite3.connect('Arma_tu_biblio.db')
             # cursor = conect.cursor()
-            showTracks = self.cur.execute("SELECT ID FROM Track where ID = ?",(Track.uri_track,)).fetchall()
+            showTracks = self.cur.execute("SELECT ID FROM Track where ID = ?",(Track.id,)).fetchall()
             #print(showTracks,len(showTracks))
         except:
             print("Error en validar que no se repita")
             return 1
         if len(showTracks)>0:
-            print("Error el track "+Track.uri_track+" ya existe")
+            print("Error el track "+Track.id+" ya existe")
             return 1
         else:
-            self.cur.execute("INSERT INTO Track VALUES (?,?,?,?,?)",(Track.uri_track,Track.name,Track.artist,Track.album,Track.duration))
+            self.cur.execute("INSERT INTO Track VALUES (?,?,?,?,?)",(Track.id,Track.name,Track.artist,Track.album,Track.duration))
             self.con.commit()
             #conect.close()
             return 0
@@ -257,30 +258,29 @@ class sinchronize():
 
     def updateBDDfromSpotify(self,librarySpotify,objBDD):
         #validat library y  verque no se repitan
-        for item in librarySpotify['items']:
-            song = item['track']
+        for item in librarySpotify:
             #se los manda en el update pero si se repiten
-            iD = song['id']
-            name = song['name']
-            artist = song['artists'][0]['name']
-            album = song['album']['name']
-            duration = song['duration_ms']
+            id = item.id
+            name = item.name
+            artist = item.artist
+            album = item.album
+            duration = item.duration
             try:
-                cursor = objBDD.cursor()
-                cursor.execute("INSERT INTO Track VALUES ('{}','{}','{}','{}','{}')".format(iD, name, artist, album, duration))
-                conect.commit()
-                conect.close()
+                objBDD.cur.execute("INSERT INTO Track VALUES ('{}','{}','{}','{}','{}')".format(id, name, artist, album, duration))
+                objBDD.con.commit()
                 print("updateBDDfromSpotify OK")
-                return 0
             except:
                 print("Error in updateBDDfromSpotify")
+                return 1
+        return 0
 
 
-    def updateSpotifyfromBDD(self,SPYFIOBJ,libraryBDD):
+    def updateSpotifyfromBDD(self,SPYFIOBJ,libraryBDD):#libraryBDD ids
         #validat library y  verque no se repitan
-        if SPYFIOBJ.saveTrack(libraryBDD):
+        if SPYFIOBJ.saveTrack(libraryBDD)==0:
             print("updateSpotifyfromBDD OK")
             return 0
+        print("Error")
         return 1
 
     def checkBDDvsSpotify(self, idsSpotify,idsBDD):
