@@ -11,7 +11,7 @@ Hello, spotyPie is an demo about how apis works, we used python3.7, requests 2.2
  Also are included the tests in /tests folder.
 
 FILE SPYCLASS.PY<br> 
-  class APISFY\()
+  class APISFY\()<br>
       \* readCredentials(list file) > return credentials if ok or 0 if not.<br>
       \* saveTrack(list idTrackList) > return 0 in exit or 1 if there an error<br>
       \* getTrackFromSpotify(string songName, string artistName) > return object track or 1<br>
