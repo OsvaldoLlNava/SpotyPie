@@ -103,13 +103,12 @@ class APISFY():
         return playlist[id]
 
     def deleteTrack(self,ids):
-        try:
+        if len(ids)>0:
             self.sp.current_user_saved_tracks_delete(ids)
             print("Track Eliminado")
             return 0
-        except:
-            print("Error in delete")
-            return 1
+        print("Nada que eliminar")
+        return 1
 
 #
 #
@@ -225,24 +224,20 @@ class DBSFY():# ////////////////////////////////////////////////////////////////
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< MOSTRAR TRACKS
 
     def getPlaylistFromDB(self):
+        tracks = []
         try:
-            # conect = sqlite3.connect('Arma_tu_biblio.db')
-            # cursor = conect.cursor()
+            conect = sqlite3.connect('Arma_tu_biblio.db')
+            cursor = conect.cursor()
             showTracks = self.cur.execute("SELECT * from Track").fetchall()
-            tracks = []
             i = 0
             for t in showTracks:
                 tracks.append(Track(t[0], t[1], t[2], t[3], t[4]))
                 i+=1
-            if len(tracks)>0:
-                # conect.close()
-                return tracks
-            # conect.close()
-            print("Nada que mostrar")
-            return 1
+
+            return tracks
         except:
             print("Error en consulta de playlist")
-            return 1
+            return tracks
 
     def getIDSFromDB(self,playlist):
         ids=[]
@@ -290,4 +285,4 @@ class sinchronize():
                 tracks_diff.append(id)
         if len(tracks_diff)>0:
             return tracks_diff
-        return 1
+        return tracks_diff
