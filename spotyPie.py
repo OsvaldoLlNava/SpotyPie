@@ -25,7 +25,7 @@ class SpotyPie():
 #><<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> ok
     def addTrackToMyPlaylist(self,track):#must be Track Object
         idlist_adapt={track.id}
-        #print("idlistadapt: >>>>>>>>>< ",idlist_adapt)
+        print("idlistadapt: >>>>>>>>>< ",idlist_adapt)
         if self.api.saveTrack(idlist_adapt) !=0:
             print ("Error in addTrackToMyPlaylist")
             return 1
@@ -94,21 +94,43 @@ class SpotyPie():
 #><<<>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     def makeSync(self):
         # try:
+        # print("Debuging makesync")
+
         unsync=[]
         idsSpotify=self.api.getPlaylistsIDSfromSpotify()
+        # print(" > idsSpotify: ",idsSpotify) # ok
         if len(idsSpotify)>0:
             tracksbdd=self.bdd.getPlaylistFromDB()
+            # print(" > tracksbdd: ",tracksbdd) # ok
             if type(tracksbdd)==int:
                 print("Type is int!")
                 return 1
             if(len(tracksbdd)>0):
                 idsBDD=self.bdd.getIDSFromDB(tracksbdd)
+                # print(" > idsBDD: ",idsBDD) # ok
                 unsync=self.sync.checkBDDvsSpotify(idsSpotify,idsBDD)
+                # print(" > unsync: ",unsync) # ok
                 if(len(unsync)>0):
-                    unsync.updateSpotifyfromBDD(api,unsync)
-                    unsync.updateBDDfromSpotify(api.getTrackslistfromSpotify(),bdd)
-                    print("Synchronized!")
-        #     return 0
+                    self.sync.updateSpotifyfromBDD(self.api,unsync)
+                    self.bdd.deleteAllTracks()
+                    # print("\n\nself.api.getTrackslistfromSpotify() ",self.api.getTrackslistfromSpotify())
+                    self.sync.updateBDDfromSpotify(self.api.getTrackslistfromSpotify(),self.bdd)
+                    print("Synchronized 01!")
+                    return 0
+            else:
+                self.sync.updateBDDfromSpotify(self.api.getTrackslistfromSpotify(),self.bdd)
+                print("Synchronized 02!")
+                return 0
+        idsbdd=self.bdd.getIDSFromDB(self.bdd.getPlaylistFromDB())
+
+        if len(idsbdd)>0:
+            self.sync.updateSpotifyfromBDD(self.api,idsbdd)
+            print("Synchronized! 03")
+            return 0
+        else:
+            print("Nada que sincronizar")
+            return 0
+        return 1
         # except:
         #     print("Error in makeSync")
         #     return 1
