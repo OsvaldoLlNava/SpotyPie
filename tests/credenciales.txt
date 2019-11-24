@@ -1,5 +1,5 @@
 username: 31hzoj7ckzb2dgudlq5zfbudzoia
 clientId: 005e25714bad49ab93e394adeabaaa96
 clientSecret: 087a97142beb44a18e818424ae2b444c
-scope: user-library-read playlist-read-private user-top-read playlist-modify-public
+scope: user-library-read playlist-read-private user-top-read playlist-modify-public playlist-modify-private
 redirect: http://google.com/
