@@ -1,5 +1,5 @@
-username: 7e7BOU6sRBSHgYHXZeQKhA
-clientId: cc9c32ea491645e6a5f3f52b473db65f
-clientSecret: c9f9c261c089491ebdde33eb8ea84eeb
+username: 31hzoj7ckzb2dgudlq5zfbudzoia
+clientId: 005e25714bad49ab93e394adeabaaa96
+clientSecret: 087a97142beb44a18e818424ae2b444c
 scope: user-library-read playlist-read-private user-top-read playlist-modify-public playlist-modify-private
 redirect: http://google.com/
