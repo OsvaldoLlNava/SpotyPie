@@ -2,10 +2,10 @@
 import unittest
 import Track
 
-import APISFY
-import DBSFY
-import sinchronize
-import SpotyPie
+from SPYClass import APISFY
+from SPYClass import DBSFY
+from SPYClass import sinchronize
+from spotyPie import SpotyPie
 import sqlite3
 'Arma_tu_biblio.py'
 class testSpotipy(unittest.TestCase):
