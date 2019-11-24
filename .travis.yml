@@ -5,5 +5,5 @@ cache: pip
 install:
   - pip install spotipy
 script:
-  - python spotypie_test.py
-  - python SPYClass_test.py
+  - python tests/spotypie_test.py
+  - python tests/SPYClass_test.py
