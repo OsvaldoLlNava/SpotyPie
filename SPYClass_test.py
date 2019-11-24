@@ -3,12 +3,12 @@ import unittest
 import Track
 import mock
 from mock import patch
-import APISFY
-import DBSFY
-import sinchronize
+from SPYClass import APISFY
+from SPYClass import DBSFY
+from SPYClass import sinchronize
 import sqlite3
 
-
+'Arma_tu_biblio'
 
 #***********************************************************************************************************************************************************
 #*          >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>> PRUEAS UNITARIAS A CLASE APISFY <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<                   *
@@ -76,7 +76,7 @@ class testSpotipy(unittest.TestCase):
                 self.artist = artist
                 self.album = album
                 self.duration = duration
-        objBDD=DBSFY('Arma_tu_biblio.db')
+        objBDD=DBSFY('Arma_tu_biblio_test.db')
         objBDD.cur.execute("DELETE FROM Track")#limpiamos la base de datos
         objTrack=Mock_Track('58MZs0B5Amxl0Mwc9FIRZc','DARE - Junior Sanchez Remix','Gorillaz','D-Sides [Special Edition]', 326373)
         objBDD.saveTrack(objTrack)
@@ -102,7 +102,7 @@ class testSpotipy(unittest.TestCase):
                     self.artist = artist
                     self.album = album
                     self.duration = duration
-            objBDD=DBSFY('Arma_tu_biblio.db')
+            objBDD=DBSFY('Arma_tu_biblio_test.db')
             objBDD.cur.execute("DELETE FROM Track")#limpiamos la base de datos
             objTrack=Mock_Track('58MZs0B5Amxl0Mwc9FIRZc','DARE - Junior Sanchez Remix','Gorillaz','D-Sides [Special Edition]', 326373)
             objBDD.saveTrack(objTrack)
@@ -135,7 +135,7 @@ class testSpotipy(unittest.TestCase):
                 self.album = album
                 self.duration = duration
 
-        objBDD=DBSFY('Arma_tu_biblio.db')
+        objBDD=DBSFY('Arma_tu_biblio_test.db')
 #
         #CASO DE PRUEBA: UN TRACK CORRECTO **************************************** <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< TEST CASE
         objTrack=Mock_Track('58MZs0B5Amxl0Mwc9FIRZc','DARE - Junior Sanchez Remix','Gorillaz','D-Sides [Special Edition]', 326373)
@@ -540,7 +540,7 @@ class testSpotipy(unittest.TestCase):
                 self.duration = duration
 
 
-        bdd=DBSFY('Arma_tu_biblio.db')
+        bdd=DBSFY('Arma_tu_biblio_test.db')
 
         objTrack=Mock_Track('AAAAAAAAAAAAAAAAAAAAAA',"Dare",'Gorillaz','D-Sides [Special Edition]', 326373)
         bdd.cur.execute("DELETE FROM Track")
@@ -564,7 +564,7 @@ class testSpotipy(unittest.TestCase):
 
     def test_getPlaylisrFromDB(self):
     #revisar que pasa cuando no tienes nada en la labase
-        obj=DBSFY('Arma_tu_biblio.db')
+        obj=DBSFY('Arma_tu_biblio_test.db')
         showTracks = obj.getPlaylistFromDB()
         try:
             for x in showTracks:
@@ -572,7 +572,7 @@ class testSpotipy(unittest.TestCase):
         except:
             print("Error")
     def test_deleteAllTracks(self):
-        obj=DBSFY('Arma_tu_biblio.db')
+        obj=DBSFY('Arma_tu_biblio_test.db')
         showTracks = obj.getPlaylistFromDB()
         try:
             for x in showTracks:
@@ -592,7 +592,7 @@ class testSpotipy(unittest.TestCase):
                 self.artist = artist
                 self.album = album
                 self.duration = duration
-        obj=DBSFY('Arma_tu_biblio.db')
+        obj=DBSFY('Arma_tu_biblio_test.db')
         try:
             obj.deleteAllTracks()
         except:
@@ -617,7 +617,7 @@ class testSpotipy(unittest.TestCase):
         id_prueba2='64Mgiyn0JSji95v7QEOv4U'
         a=APISFY("credenciales.txt")
         s=sinchronize()
-        #d=DBSFY("./../Arma_tu_biblio.db")
+        #d=DBSFY("./../Arma_tu_biblio_test.db")
         #idsSp=a.getPlaylistfromSpotify()
         idsSp=[id_prueba1,id_prueba2]#d.getPlaylistFromDB()
         idsBDD=[id_prueba1,id_prueba2]
@@ -627,7 +627,7 @@ class testSpotipy(unittest.TestCase):
 #
     def test_updateBDDfromSpotify(self):
         objapi=APISFY("credenciales.txt")
-        objbdd=DBSFY('Arma_tu_biblio.db')
+        objbdd=DBSFY('Arma_tu_biblio_test.db')
         objsync=sinchronize()
         ids=objapi.getPlaylistsIDSfromSpotify()
         #print("getPlaylistfromSpotify berfore delete",ids)
@@ -665,7 +665,7 @@ class testSpotipy(unittest.TestCase):
         mock1=Mock_Track('08jkW1RWXUwKA3W0bqWGuU','Get Lucky - Karaoke','Tribute to Daft Punk','Get Lucky',258101)
         mock2=Mock_Track('58MZs0B5Amxl0Mwc9FIRZc', 'DARE - Junior Sanchez Remix','Gorillaz', 'D-Sides [Special Edition]', 326373)
         objapi=APISFY("credenciales.txt")
-        objbdd=DBSFY('Arma_tu_biblio.db')
+        objbdd=DBSFY('Arma_tu_biblio_test.db')
         objsync=sinchronize()
         idsSp=objapi.getPlaylistsIDSfromSpotify()
         print("getPlaylistfromSpotify berfore delete",idsSp)
