@@ -5,4 +5,4 @@ cache: pip
 install:
   - pip install spotipy
 script:
-  - python tests/spotypie_test.py
+  - python spotypie_test.py
