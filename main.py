@@ -3,6 +3,7 @@ from spotipy import util
 import sys
 import sqlite3
 from spotyPie import SpotyPie
+import os
 
 sp=SpotyPie("./data/credenciales.txt","./data/Arma_tu_biblio.db")
 
@@ -10,6 +11,7 @@ def main():
 
 
     while(True):
+        print()
         menu_spotyPyConsole(sp)
         try:
             continuar =int(input(" [*] Ingrese 0 para salir u otro dato para continuar\n [*] > "))
@@ -18,7 +20,11 @@ def main():
                 break
         except ValueError:
             print(" [-] Ingresa datos validos\n")
+        finally:
+            sp.makeSync()
         print()
+        os.system('clear')
+    print(" FIN DE LA EJECICION")
 
 def menu_spotyPyConsole(sp):
     c=True #continue
@@ -44,7 +50,7 @@ def menu_spotyPyConsole(sp):
             if c:
 
                 track= sp.searchTrack(song, artist)
-                if track!=None:
+                if track!=None and track!=1:
                     try:
                         print('\n [!] ¿Quieres agregar la siguiente cancion a tu biblioteca?\n')
                         print(" ",track)
@@ -78,7 +84,7 @@ def menu_spotyPyConsole(sp):
             print(" [*] Mostrando tracks acuales\n")
             playlist=sp.showMyPlaylist()
             if len(playlist)>0:
-                print(len(playlist))
+                print(playlist)
                 c=True
             else:
                 c=False
