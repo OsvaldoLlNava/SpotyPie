@@ -1,10 +1,12 @@
 import sqlite3
 import spotipy
 import spotipy.util as util
+import SPYAbs
+import DBAbs
 from Track import Track
 import sys
 
-class APISFY():
+class APISFY(SPYAbs.SFYSERVICE):
     sp=None
     def __init__(self,filepathCredentials):
         #credentials.append()
@@ -121,7 +123,7 @@ class APISFY():
 #
 #
 #
-class DBSFY():# //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////DBSFY
+class DBSFY(DBAbs.DBService):# //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////DBSFY
 
     cur=None
     con=None

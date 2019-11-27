@@ -2,5 +2,15 @@ from abc import ABC, abstractmethod
 
 class SFYSERVICE(ABC):
     @abstractmethod
-    def get_track_info(self, trackName, artist):
+    def saveTrack(self):
         pass
+    
+    @abstractmethod
+    def deleteTrack(self):
+        pass
+    
+    @abstractmethod
+    def printPlaylist(self):
+        pass
+
+
